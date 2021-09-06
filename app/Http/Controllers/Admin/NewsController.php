@@ -13,6 +13,12 @@ class NewsController extends Controller
         return view('admin.news.create');
     }
 
+//カリキュラム22の追加部分
+    public function create(Request $request)
+    {
+        // admin/news/createにリダイレクト
+        return redirect('admin/news/create');
+    }
 
 
 }
