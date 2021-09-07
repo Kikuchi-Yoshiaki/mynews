@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- CSRF Token -->
-         {{-- 後の章で説明します --}}
+         {{-- 認証済ユーザーのリクエスト送信を確認 --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         {{-- 各ページごとにtitleタグを入れるために@yieldで空けておきます。 --}}
@@ -23,12 +23,13 @@
         <!-- Styles -->
         {{-- Laravel標準で用意されているCSSを読み込みます --}}
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        {{-- この章の後半で作成するCSSを読み込みます --}}
+        {{-- 作成したpublic/css/admin.cssを読み込む --}}
         <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app">
-            {{-- 画面上部に表示するナビゲーションバーです。 --}}
+            
+            {{-- ここから画面上部のナビゲーションバー --}}
             <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">

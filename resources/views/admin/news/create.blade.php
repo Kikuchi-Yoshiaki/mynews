@@ -7,6 +7,7 @@
 
 {{-- admin.blade.phpの@yield('content')に以下のタグを埋め込む --}}
 @section('content')
+    <!-- ニュースタイトル -->
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
@@ -14,6 +15,7 @@
             <!-- カリキュラム22追加部分 -->    
                 <form action="{{ action('Admin\NewsController@create') }}" method="post" enctype="multipart/form-data">
                     
+                    <!-- エラーを確認 -->
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)

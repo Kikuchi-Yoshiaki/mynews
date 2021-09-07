@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class ProfileController extends Controller
 {
     //
+    //resources/views/admin/profile/create.blade.phpへ
     public function add()
     {
         return view('admin.profile.create');
@@ -18,6 +19,7 @@ class ProfileController extends Controller
         return redirect('admin/profile/create');
     }
 
+    //resources/views/admin/profile/edit.blade.phpへ
     public function edit() 
     {
         return view('admin.profile.edit');

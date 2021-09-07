@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 //カリキュラム22追加部分
+//app/Http/Controllers/Admin/NewsControllersのAction()への処理
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
    Route::get('news/create', 'Admin\NewsController@add');
    Route::post('news/create', 'Admin\NewsController@create');
@@ -25,11 +26,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 Route::get('XXX', 'AAAController@bbb');
 
 //課題4 //22-課題3-課題-6
+//app/Http/Controllers/Admin/ProfileControllersのAction()への処理
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('profile/create', 'Admin\ProfileController@add');
     Route::post('prfile/create', 'Admin\ProfileController@create');
     Route::get('profile/edit', 'Admin\ProfileController@edit');
-    Route::post('profile/edit', 'Admin\ProfileController@edit');
+    Route::post('profile/edit', 'Admin\ProfileController@update');
 });
 Auth::routes();
 
