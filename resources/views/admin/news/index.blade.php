@@ -60,9 +60,11 @@
                                 <td>{{ \Str::limit($news->body, 250) }}</td>
                                 <td>
                                     <div>
+                                        <!-- NewsControllerのeditActionがリンク先（idを指定）編集する -->
                                         <a href="{{ action('Admin\NewsController@edit', ['id' => $news->id]) }}">編集</a>
                                     </div>
                                     <div>
+                                        <!-- NewsControllerのdeleteActionがリンク先（idを指定）削除する -->
                                         <a href="{{ action('Admin\NewsController@delete', ['id' => $news->id]) }}">削除</a>
                                     </div>
                                 </td>

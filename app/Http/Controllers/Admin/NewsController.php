@@ -17,12 +17,11 @@ class NewsController extends Controller
         return view('admin.news.create');
     }
 
-//カリキュラム22の追加部分
     //resources/views/admin/news/create.blade.phpへ
     public function create(Request $request)
     {
         
-        //Varidationを行う
+        //Newsのリクエスト全てをValidation(検証)する
         $this->validate($request, News::$rules);
         
         $news = new News;
@@ -30,7 +29,9 @@ class NewsController extends Controller
         
         //フォームから画像が来たら保存して$news->image_pathに画像を保存
         if (isset($form['image'])) {
+            //画像をアップロードして保存
             $path = $request->file('image')->store('public/image');
+            //＄pathをハッシュ化(文字列化)する
             $news->image_path = basename($path);
         //画像が来なかったらNullで返す    
         } else {
@@ -41,8 +42,9 @@ class NewsController extends Controller
         unset($form['_token']);
         //フォームから送信されたをimage削除
         unset($form['image']);
-        //
+        //＄formをModelにセット※ここでは削除されていないtitleとbody
         $news->fill($form);
+        //$newsを保存
         $news->save();
         
         
@@ -74,35 +76,38 @@ class NewsController extends Controller
     //Requesutクラス(ユーザーからくる全ての情報)にeditメソッド
     public function edit(Request $request)
     {
-        //News Modelからデータを取得する
+        //News Modelのデータを取得する
         $news = News::find($request->id);
+        //$newsの中身がない場合は
         if (empty($news)) {
+            //404へ移動する
             abort(404);
         }
+        //admin/Profile/createに返す
         return view('admin.news.edit', ['news_form' => $news]);
     }
     
     
-    //Requesutクラス(ユーザーからくる全ての情報)にupdateメソッド
+    //resources/views/admin/news/edit.blade.phpへ
     public function update(Request $request)
     {
-        //Validationをかける
+        //Valodation(検証)する
         $this->validate($request, News::$rules);
-        //Nwes Modelからデータを取得する
+        //Newsモデルからデータを取得する
         $news = News::find($request->id);
-        //送信されてｌきたフォームデータ$news_formに代入する
+        //送信されてきたフォームデータ全てを$news_formに代入する
         $news_form = $request->all();
-        //もし$requestの再読み込み画像が同じならば
+        //もし$requestの再読み込み画像がそのままであれば
         if ($request->remove == 'true') {
             //$news_formの画像はnullでそのまま
             $news_form['image_path'] = null;
         //もし$requestの画像が変更された場合は
         } elseif ($request->file('image')) {
-            //
+            //画像をアップロードして保存
             $path = $request->file('image')->store('public/image');
+            //＄pathをハッシュ化(文字列化)する
             $news_form['image_path'] = basename($path);
         } else {
-            
             $news_form['image_path'] = $news->image_path;
         }
         
@@ -121,10 +126,11 @@ class NewsController extends Controller
     //Requesutクラス(ユーザーからくる全ての情報)にdeleteメソッド
     public function delete(Request $request)
     {
-        //該当するNews Modelを取得
+        //News Modelを取得
         $news = News::find($request->id);
         //削除する
         $news->delete();
+        //admin/profileへリダイレクト
         return redirect('admin/news/');
     }
 

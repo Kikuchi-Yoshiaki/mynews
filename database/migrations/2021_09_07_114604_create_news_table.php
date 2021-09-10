@@ -12,16 +12,15 @@ class CreateNewsTable extends Migration
      * @return void
      */
     
-    //カリキュラム23
     //up関数-Migration実行時のコードを書く
     public function up()
     {
         //テーブル名:news
         Schema::create('news', function (Blueprint $table) {
            $table->bigIncrements('id');  //id=>主キー
-           $table->string('title');  //ニュースのタイトルを保存するカラム
-           $table->string('body');  //ニュースの本文を保存するカラム
-           $table->string('image_path')->nullable();  //画像のパスを保存するカラム.nullableは画像パスは空でも保存可の意味
+           $table->string('title');  //タイトルカラム
+           $table->string('body');  //ニュースの本文カラム
+           $table->string('image_path')->nullable();  //画像テーブルnullableは画像パスは空でも保存可の意味
            $table->timestamps();
         });
     }

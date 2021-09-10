@@ -12,6 +12,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>ニュース編集</h2>
+                <!-- NewsControllerのupdateActionがリンク先 -->
                 <form action="{{ action('Admin\NewsController@update') }}" method='post' enctype="multipart/form-data">
                     
                     <!-- エラーを確認 -->
@@ -27,6 +28,7 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="title">タイトル</label>
                         <div class="col-md-10">
+                            <!-- $news_formのtitle部分を表示 -->
                             <input type="text" class="form-control" name="title" value="{{ $news_form->title }}">
                         </div>
                     </div>
@@ -35,6 +37,7 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="body">本文</label>
                         <div class="col-md-10">
+                            <!-- $news_formのbody部分を表示 -->
                             <textarea class="form-control" name="body" rows="20">{{ $news_form->body }}</textarea>
                         </div>
                     </div>
@@ -42,10 +45,11 @@
                     <!-- 画像挿入部分 -->
                     <div class="form-group row">
                         <label class="col-md-2" for="image">画像</label>
-                        <div class="col-md-20">
+                        <div class="col-md-10">
                             <input type="file" class="form-control-file" name="image">
                             <div class="form-text text-info">
-                                設定中： {{ $news_form->image_path }}
+                                <!-- 設定してあるハッシュ化のimage_pathを表示 -->
+                                設定中：{{ $news_form -> image_path }}
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
@@ -58,6 +62,7 @@
                     <!-- 更新ボタン -->    
                     <div class="form-group row">
                         <div class="col-md-10">
+                            <!-- type="hidden"->隠しデータを送信 -->
                             <input type="hidden" name="id" value="{{ $news_form->id }}">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-primary" value="更新">

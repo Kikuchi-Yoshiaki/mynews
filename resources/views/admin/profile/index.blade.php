@@ -43,10 +43,10 @@
                     <thead>
                          <tr>
                             {{-- テーブルの横幅を指定 --}}
-                            <th width="25%">名前</th>
-                            <th width="25%">性別</th>
-                            <th width="25%">趣味</th>
-                            <th width="25%">自己紹介</th>
+                            <th width="20%">名前</th>
+                            <th width="10%">性別</th>
+                            <th width="30%">趣味</th>
+                            <th width="40%">自己紹介</th>
                         </tr>
                     </thead>
                     <!-- 検索結果表示画面 -->
@@ -59,12 +59,14 @@
                                 <td>{{ \Str::limit($profile->name, 100) }}</td>
                                 <td>{{ \Str::limit($profile->gender, 100) }}</td>
                                 <td>{{ \Str::limit($profile->hobby, 100) }}</td>
-                                <td>{{ \Str::limit($profile->introduct, 100) }}</td>
+                                <td>{{ \Str::limit($profile->introduct, 250) }}</td>
                                 <td>
                                     <div>
+                                        <!-- ProfileControllerのeditActionがリンク先（idを指定）編集する -->
                                         <a href="{{ action('Admin\ProfileController@edit', ['id' => $profile->id]) }}">編集</a>
                                     </div>
                                     <div>
+                                        <!-- ProfileControllerのeditActionがリンク先（idを指定）削除する -->
                                         <a href="{{ action('Admin\ProfileController@delete', ['id' => $profile->id]) }}">削除</a>
                                     </div>
                                 </td>

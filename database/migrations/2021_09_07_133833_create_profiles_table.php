@@ -16,10 +16,10 @@ class CreateProfilesTable extends Migration
         //テーブル名:profile
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id'); //id=>主キー
-            $table->string('name');  //プロフィールの名前カラム
-            $table->string('gender');  //プロフィールの性別カラム
-            $table->string('hobby');  //プロフィールの趣味カラム
-            $table->string('introduction');  //プロフィールの自己紹介カラム
+            $table->string('name');  //名前カラム
+            $table->string('gender');  //性別カラム
+            $table->string('hobby');  //趣味カラム
+            $table->string('introduction');  //自己紹介カラム
             $table->timestamps();
         });
     }
