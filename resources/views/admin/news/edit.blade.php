@@ -42,14 +42,11 @@
                     <!-- 画像挿入部分 -->
                     <div class="form-group row">
                         <label class="col-md-2" for="image">画像</label>
-                        //画像選択ボタン
-                        <div class="col-md-10">
+                        <div class="col-md-20">
                             <input type="file" class="form-control-file" name="image">
-                            //imageパスを表示
                             <div class="form-text text-info">
                                 設定中： {{ $news_form->image_path }}
                             </div>
-                            //画像削除
                             <div class="form-check">
                                 <label class="form-check-label">
                                     <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
@@ -71,6 +68,4 @@
         </div>
     </div>
 @endsection
-
-
 

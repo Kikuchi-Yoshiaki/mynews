@@ -1,30 +1,30 @@
 {{-- resources/layouts/admin.blade.phpを読み込む --}}
 @extends('layouts.admin')
 {{-- admin.blade.phpの@yield('title')に'登録済みのニュース一覧'を埋め込む --}}
-@section('title', '登録済みのニュース一覧')
+@section('title', '登録済みのプロフィール一覧')
 
 {{-- admin.blade.phpの@yield('content')に以下のタグを埋め込む --}}
 @section('content')
     <!-- ニュース一覧タイトル -->
     <div class="container">
         <div class="row">
-            <h2>ニュース一覧</h2>
+            <h2>プロフィール一覧</h2>
         </div>
     <!-- 新規作成ボタン -->
     <div class="row">
         <div class="col-md-4">
             {{-- add/app/Http/controllers/Admin/NewsControllerのadd()へ --}}
-            <a href="{{ action('Admin\NewsController@add') }}" role="button" class="btn btn-primary">新規作成</a>
+            <a href="{{ action('Admin\ProfileCntroller@add') }}" role="button" class="btn btn-primary">新規作成</a>
         </div>
         <!-- タイトル入力部分 -->
         <div class="col-md-8">
             {{-- add/app/Http/controllers/Admin/NewsControllerのindex()へ送る --}}
-            <form action="{{ action('Admin\NewsController@index') }}" method="get">
+            <form action="{{ action('Admin\ProfileController@index') }}" method="get">
                 <div class="form-group row">
-                    <label class="col-md-2">タイトル</label>
+                    <label class="col-md-2">名前</label>
                     <div class="col-md-8">
                         {{-- ここの内容が$cond_titleに代入される --}}
-                        <input type="text" class="form-control" name="cond_title" value="{{ $cond_title }}">
+                        <input type="text" class="form-control" name="cond_name" value="{{ $cond_name }}">
                     </div>
                     <div class="col-md-2">
                         {{ csrf_field() }}
@@ -43,27 +43,29 @@
                     <thead>
                          <tr>
                             {{-- テーブルの横幅を指定 --}}
-                            <th width="10%">ID</th>
-                            <th width="20%">タイトル</th>
-                            <th width="50%">本文</th>
-                            <th width="10%">操作</th>
+                            <th width="25%">名前</th>
+                            <th width="25%">性別</th>
+                            <th width="25%">趣味</th>
+                            <th width="25%">自己紹介</th>
                         </tr>
                     </thead>
                     <!-- 検索結果表示画面 -->
                     <tbody>
                         {{-- $posts配列をforeach --}}
-                        @foreach($posts as $news)
+                        @foreach($profiles as $profile)
                             <tr>
-                                <th>{{ $news->id }}</th>
+                                <th>{{ $profile->id }}</th>
                                 {{-- 文字列を指定した数値まで表示(全角は２文字分) --}}
-                                <td>{{ \Str::limit($news->title, 100) }}</td>
-                                <td>{{ \Str::limit($news->body, 250) }}</td>
+                                <td>{{ \Str::limit($profile->name, 100) }}</td>
+                                <td>{{ \Str::limit($profile->gender, 100) }}</td>
+                                <td>{{ \Str::limit($profile->hobby, 100) }}</td>
+                                <td>{{ \Str::limit($profile->introduct, 100) }}</td>
                                 <td>
                                     <div>
-                                        <a href="{{ action('Admin\NewsController@edit', ['id' => $news->id]) }}">編集</a>
+                                        <a href="{{ action('Admin\ProfileController@edit', ['id' => $profile->id]) }}">編集</a>
                                     </div>
                                     <div>
-                                        <a href="{{ action('Admin\NewsController@delete', ['id' => $news->id]) }}">削除</a>
+                                        <a href="{{ action('Admin\ProfileController@delete', ['id' => $profile->id]) }}">削除</a>
                                     </div>
                                 </td>
                             </tr>

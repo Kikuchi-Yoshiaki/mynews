@@ -17,7 +17,7 @@ class ProfileController extends Controller
         return view('admin.profile.create');
     }
     
-    //resources/views/admin/profile/create.blade.phpへ
+    
     public function create(Request $request)
     {
         
@@ -27,24 +27,64 @@ class ProfileController extends Controller
         $profile = new Profile;
         $form = $request->all();
         
+ 
+        
         //フォームから送信された_tokenを削除
         unset($form['_token']);
+        
+        $profile->fill($form);
+        $profile->save();
         
         
         //admin/profile/createにリダイレクト
         return redirect('admin/profile/create');
     }
 
-    //resources/views/admin/profile/edit.blade.phpへ
-    public function edit() 
+    
+    public function index(Request $request)
     {
-        return view('admin.profile.edit');
+        $cond_profile = $request->cond_profile;
+        if($cond_profile != ''){
+            $posts = Profile::where('neme', $cond_name)->get();
+        } else {
+            $posts = Profile::all();
+        }
+        return view('admin.profile.index', ['posts' => $posts, 'cond_name' => $cond_name]);
+    }
+
+
+    public function edit(Request $request)  
+    {
+        
+        $profile = Profile::find($request->id);
+        if(empty($profile)){
+            abort(404);
+        }
+        return view('admin.profile.edit', 
+        ['profile_form' => $profile]);
     }
     
     //resources/views/admin/profile/edit.blade.phpへ
     public function update()
     {
-        return redirect('admin/profile/edit');
+        $this->validate($request, Profiles::$rules);
+        $profile_form = $request->all();
+        
+        unset($profile_form['remove']);
+        unset($profile_form['_token']);
+        
+        $profile->fill($profile_form)->save;
+        
+        return redirect('admin/profile');
     }
 
 }
+
+
+
+
+
+
+
+
+
