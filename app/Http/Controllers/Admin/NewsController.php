@@ -5,133 +5,129 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-//News Modelを使えるようにする
-use App\News;
+use App\News;  # News Modelを使う -> app/Http/News.php
+use App\History;  # History Modelを使えるようにする -> app/Http/History
+use Carbon\Carbon;  # updateActionのCarbon::now()を使う
+    
+
 
 class NewsController extends Controller
 {
-    //resources/views/admin/news/create.blade.phpへ
-    public function add()
+
+
+    
+    public function add() // add Action
     {
-        //admin/news/createに返す
-        return view('admin.news.create');
+        return view('admin.news.create'); # (resources/views/admin/news/create.blade.php)
     }
 
-    //resources/views/admin/news/create.blade.phpへ
-    public function create(Request $request)
+
+
+    public function create(Request $request) // create Action(送信されたすべて)
     {
-        
-        //Newsのリクエスト全てをValidation(検証)する
         $this->validate($request, News::$rules);
+            # app/News.php(Model)の$rules配列をValidation(検証)する
         
-        $news = new News;
-        $form = $request->all();
+        $news = new News; #$newsをインスタンス化(News)
+        $form = $request->all(); # $requestの全てを受け取って$formへ
         
-        //フォームから画像が来たら保存して$news->image_pathに画像を保存
-        if (isset($form['image'])) {
-            //画像をアップロードして保存
-            $path = $request->file('image')->store('public/image');
-            //＄pathをハッシュ化(文字列化)する
-            $news->image_path = basename($path);
-        //画像が来なかったらNullで返す    
+        
+        if (isset($form['image'])) #$formの画像がセットされているか確認
+        {
+            $path = $request->file('image')->store('public/image'); #画像をアップロードして保存=$path
+            $news->image_path = basename($path); # $pathをハッシュ(文字列)化して$newsのimage_pathへ
         } else {
-            $news->image_path = null;
+            $news->image_path = null; #画像がセットされていなければNULL
         }
         
-        //フォームから送信された_tokenを削除
-        unset($form['_token']);
-        //フォームから送信されたをimage削除
-        unset($form['image']);
-        //＄formをModelにセット※ここでは削除されていないtitleとbody
-        $news->fill($form);
-        //$newsを保存
-        $news->save();
+        unset($form['_token']); # $formのトークンをセットから外す
+        unset($form['image']);  # $formの画像をセットから外す
         
+        $news->fill($form)->save(); # $news_newsに上記で入力された値を$newsにセットして保存
         
-        //admin/news/createにリダイレクト
-        return redirect('admin/news/create');
+        return redirect('admin/news/create'); #admin/news/createへ移動する
     }
 
 
-    //Requesutクラス(ユーザーからくる全ての情報)にindexメソッド
-    public function index(Request $request)
+
+    public function index(Request $request) // index Action(送信されたすべて)
     {
-        //リクエスト情報内のcond_titleを$cond_titleに代入
-        $cond_title = $request->cond_title;
-        //もし$cond_titleの中身が空白ではなかった場合(データがあった場合)
-        if ($cond_title != '') {
-            //newsテーブルのtitleカラムで$cond_titleと一致するレコードを取得して$postsに代入
-            $posts = News::where('title', $cond_title)->get();
+        $cond_title = $request->cond_title; # $requestの$cond_titleを$cond_titleへ代入
+            # ※今回はindex,blade.phpのvalue属性なので、入力された値
+            
+        if ($cond_title != '') {  # $cond_titleがあれば(!='')
+            $posts = News::where('title', $cond_title)->get(); #$cond_titleと一致するレコードを$postsへ
+                # News::where->Newsテーブル::レコード
         } else {
-            //空白だった場合はnewsテーブルのレコード全てを取得して、$postsに代入する
-            $posts = News::all();
+            $posts = News::all(); # 空白だった場合はNewsテーブル全てを$postsへ代入
         }
         
-        //index.blade.phpのファイルに取得した$postsレコードと$cond_titleユーザー入力を渡す
         return view('admin.news.index', ['posts' => $posts, 'cond_title' => $cond_title]);
-        // ※index.blade.phpはresources/views/admin/news/内に作成
+            # index.blade.phpのpostsを$posts(配列)へ、cond_titleを$sond_titleにする
     }
 
+
     
-    //Requesutクラス(ユーザーからくる全ての情報)にeditメソッド
-    public function edit(Request $request)
+    public function edit(Request $request)  // index Action(送信されたすべて)
     {
-        //News Modelのデータを取得する
-        $news = News::find($request->id);
-        //$newsの中身がない場合は
-        if (empty($news)) {
-            //404へ移動する
-            abort(404);
+        $news = News::find($request->id); # News Modelからデータを取得する
+        
+        if (empty($news)) { # $newsの中身が空であれば
+            abort(404); # 404 Not Foundへ
         }
-        //admin/Profile/createに返す
+        
         return view('admin.news.edit', ['news_form' => $news]);
+            # edit.blade.phpのnews_formを$newsにする
     }
     
     
-    //resources/views/admin/news/edit.blade.phpへ
-    public function update(Request $request)
+
+    public function update(Request $request) // update Action(送信されたすべて)
     {
-        //Valodation(検証)する
         $this->validate($request, News::$rules);
-        //Newsモデルからデータを取得する
-        $news = News::find($request->id);
-        //送信されてきたフォームデータ全てを$news_formに代入する
-        $news_form = $request->all();
-        //もし$requestの再読み込み画像がそのままであれば
-        if ($request->remove == 'true') {
-            //$news_formの画像はnullでそのまま
-            $news_form['image_path'] = null;
-        //もし$requestの画像が変更された場合は
-        } elseif ($request->file('image')) {
-            //画像をアップロードして保存
+            # app/News.php(Model)の$rules配列をValidation(検証)する
+            
+        $news = News::find($request->id); # News Modelからデータを取得する
+        $news_form = $request->all(); # $requestの全てを受け取って$news_formへ
+        
+        if ($request->remove == 'true') {  # 再読み込みした$requesutがそのままだった時は
+                # ※->remove(再読み込み)
+            $news_form['image_path'] = null; # $news_formのimage_pathはNULL
+        } elseif ($request->file('image')) { # $requestの画像ファイルが更新された時は
             $path = $request->file('image')->store('public/image');
-            //＄pathをハッシュ化(文字列化)する
+                # 更新された画像をアップロードして$pathに代入
             $news_form['image_path'] = basename($path);
+                # $pathをハッシュ(文字列)化させて$news_formのimage_pathに代入
         } else {
             $news_form['image_path'] = $news->image_path;
+                # そのどちらでもなければ$newsのimage_pathを$news_formのimage_pathに代入
         }
         
-        //フォームから送信されたimageを削除
-        unset($news_form['image']);
-        //フォームから送信されたremoveを削除
-        unset($news_form['remove']);
-        //フォームから送信された_tokenを削除
-        unset($news_form['_token']);
-        //該当するデータを上書き保存する
-        $news->fill($news_form)->save();
-        //admin/news/createにリダイレクト
-        return redirect('admin/news');
+        unset($news_form['image']);  # $news_formの画像をセットから外す
+        unset($news_form['remove']); # 再読み込みされた$news_formをセットから外す
+        unset($news_form['_token']); # $news_formのトークンをセットから外す
+        
+        $news->fill($news_form)->save(); # $news_newsに上記で入力された値を$newsにセットして上書き保存
+        
+        
+        // ※History Modelにも編集履歴を追加できるようにする処理
+        $history = new History(); # $historyをインスタンス化(History)
+        $history->news_id = $news->id; # $newsのidを$historyのnews_idに代入
+        $history->edited_at = Carbon::now(); # 入力された現在時刻を$historyのedited_atに代入
+            #Carbon::now()日時操作
+        $history->save(); # $historyを保存
+        
+        return redirect('admin/news'); #admin/newsへ移動する
     }  
     
-    //Requesutクラス(ユーザーからくる全ての情報)にdeleteメソッド
-    public function delete(Request $request)
+    
+    
+    public function delete(Request $request)  // delete Action(送信されたすべて)
     {
-        //News Modelを取得
-        $news = News::find($request->id);
-        //削除する
-        $news->delete();
-        //admin/profileへリダイレクト
-        return redirect('admin/news/');
+        $news = News::find($request->id); # News Modelからデータを取得する
+        $news->delete(); # $newsを削除する
+        
+        return redirect('admin/news'); #admin/newsへ移動する
     }
 
 }

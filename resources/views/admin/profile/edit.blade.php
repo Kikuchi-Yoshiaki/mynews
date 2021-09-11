@@ -39,7 +39,7 @@
                             <label class="col-md-2" for='name'>性別</label>
                             <div class="col-md-10">
                                 <!-- $profile_formのgender部分を表示 -->
-                                <input type="text" class="form-control" name="body" value="{{ $profile_form->gender }}">
+                                <input type="text" class="form-control" name="gender" value="{{ $profile_form->gender }}">
                             </div>
                         </div>
                         
@@ -57,7 +57,7 @@
                         <label class="col-md-2" for="body">自己紹介</label>
                         <div class="col-md-10">
                             <!-- $profile_formのintroduct部分を表示 -->
-                            <textarea class="form-control" name="introduct" rows="20">{{ $profile_form->introduction }}</textarea>
+                            <textarea class="form-control" name="introduction" rows="20">{{ $profile_form->introduction }}</textarea>
                         </div>
                     </div>
                     
@@ -71,6 +71,21 @@
                         </div>
                     </div>
                 </form>
+                <!-- 編集履歴表示画面 -->
+                <div class="row mt-5">
+                    <div class="col-md-4 mx-auto">
+                        <h2>編集履歴</h2>
+                        <ul class="list-group">
+                            <!-- 編集履歴が存在した場合の処理 -->
+                            @if ($profile_form->profile_histories != NULL)
+                                <!-- 編集履歴を一つずつ取り出して表示 -->
+                                @foreach ($profile_form->profile_histories as $profile_history)
+                                    <li class="list-group-item">{{ $profile_history->edited_at }}</li>
+                                @endforeach
+                            @endif
+                        </ul>    
+                    </div>
+                </div>
             </div>
         </div>
     </div>

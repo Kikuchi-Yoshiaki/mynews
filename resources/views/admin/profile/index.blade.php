@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-4">
             {{-- add/app/Http/controllers/Admin/NewsControllerのadd()へ --}}
-            <a href="{{ action('Admin\ProfileCntroller@add') }}" role="button" class="btn btn-primary">新規作成</a>
+            <a href="{{ action('Admin\ProfileController@add') }}" role="button" class="btn btn-primary">新規作成</a>
         </div>
         <!-- タイトル入力部分 -->
         <div class="col-md-8">
@@ -24,7 +24,7 @@
                     <label class="col-md-2">名前</label>
                     <div class="col-md-8">
                         {{-- ここの内容が$cond_titleに代入される --}}
-                        <input type="text" class="form-control" name="cond_name" value="{{ $cond_name }}">
+                        <input type="text" class="form-control" name="cond_profile" value="{{ $cond_profile }}">
                     </div>
                     <div class="col-md-2">
                         {{ csrf_field() }}
@@ -43,10 +43,11 @@
                     <thead>
                          <tr>
                             {{-- テーブルの横幅を指定 --}}
+                            <th width="10%">ID</th>
                             <th width="20%">名前</th>
                             <th width="10%">性別</th>
-                            <th width="30%">趣味</th>
-                            <th width="40%">自己紹介</th>
+                            <th width="20%">趣味</th>
+                            <th width="30%">自己紹介</th>
                         </tr>
                     </thead>
                     <!-- 検索結果表示画面 -->

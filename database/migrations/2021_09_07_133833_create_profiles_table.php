@@ -13,7 +13,7 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        //テーブル名:profile
+        //テーブル名:profiles
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id'); //id=>主キー
             $table->string('name');  //名前カラム
