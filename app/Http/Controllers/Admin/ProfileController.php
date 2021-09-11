@@ -81,7 +81,6 @@ class ProfileController extends Controller
         $profile = Profile::find($request->id); # Profile Modelからデータを取得する
         $profile_form = $request->all(); # $requestの全てを受け取って$profile_formへ
         
-        
         unset($profile_form['remove']); # 再読み込みされた$profile_formをセットから外す
         unset($profile_form['_token']); # $news_formのトークンをセットから外す
         
