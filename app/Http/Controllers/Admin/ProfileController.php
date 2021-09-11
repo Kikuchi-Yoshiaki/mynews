@@ -47,8 +47,8 @@ class ProfileController extends Controller
             # ※今回はindex,blade.phpのvalue属性なので、入力された値
             
         if($cond_profile != '') {  # $cond_profileがあれば(!='')
-                $posts = Profile::where('profile', $cond_profile)->get(); # $cond_profileと一致するレコードを$postsへ
-                     # Profile::where->Profileテーブル::レコード    
+                $posts = Profile::where('name', $cond_profile)->get(); # nameテーブルと$cond_profileが一致するレコードを$postsへ
+                     # Profile::where->Profileテーブルのnameレコード    
         } else {
             $posts = Profile::all(); # 空白だった場合はProfireテーブル全てを$postsへ代入
         }
@@ -84,7 +84,7 @@ class ProfileController extends Controller
         unset($profile_form['remove']); # 再読み込みされた$profile_formをセットから外す
         unset($profile_form['_token']); # $news_formのトークンをセットから外す
         
-        $profile->fill($profile_form)->save; # $news_newsに上記で入力された値を$newsにセットして上書き保存
+        $profile->fill($profile_form)->save(); # $news_newsに上記で入力された値を$newsにセットして上書き保存
        
         
         // ※ProfileHistory Modelにも編集履歴を追加できるようにする処理

@@ -60,7 +60,7 @@
                                 <td>{{ \Str::limit($profile->name, 100) }}</td>
                                 <td>{{ \Str::limit($profile->gender, 100) }}</td>
                                 <td>{{ \Str::limit($profile->hobby, 100) }}</td>
-                                <td>{{ \Str::limit($profile->introduct, 250) }}</td>
+                                <td>{{ \Str::limit($profile->introduction, 250) }}</td>
                                 <td>
                                     <div>
                                         <!-- ProfileControllerのeditActionがリンク先（idを指定）編集する -->

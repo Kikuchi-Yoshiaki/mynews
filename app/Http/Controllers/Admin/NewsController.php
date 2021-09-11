@@ -56,8 +56,8 @@ class NewsController extends Controller
             # ※今回はindex,blade.phpのvalue属性なので、入力された値
             
         if ($cond_title != '') {  # $cond_titleがあれば(!='')
-            $posts = News::where('title', $cond_title)->get(); #$cond_titleと一致するレコードを$postsへ
-                # News::where->Newsテーブル::レコード
+            $posts = News::where('title', $cond_title)->get(); # titleテーブルと$cond_titleが一致するレコードを$postsへ
+                # News::where->Newsテーブルのtitleレコード
         } else {
             $posts = News::all(); # 空白だった場合はNewsテーブル全てを$postsへ代入
         }
