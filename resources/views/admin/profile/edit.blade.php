@@ -18,39 +18,63 @@
                         
                         <!-- エラーを確認 -->
                         @if (count($errors) > 0)
-                            <ul>
-                                @foreach($errors->all() as $e)
-                                    <li>{{ $e }}</li>
-                                @endforeach
-                            </ul>
+                            <div class="col-md-12 alert alert-light">
+                                <div style="color: red;">※ 入力漏れの箇所があります。</div>
+                                <ul>
+                                    @foreach($errors->all() as $e)
+                                        <li>{{ $e }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endif
                         
                         <!-- 名前入力部分 -->
                         <div class="form-group row">
                             <label class="col-md-2" for='name'>名前</label>
-                            <div class="col-md-10">
+                            <div class="col-md-4">
                                 <!-- $profile_formのname部分を表示 -->
                                 <input type="text" class="form-control" name="name" value="{{ $profile_form->name }}">
                             </div>
                         </div>
                         
                         <!-- 性別入力部分 -->
-                        <div class="form-group row">
+                        <!--<div class="form-group row">
                             <label class="col-md-2" for='name'>性別</label>
-                            <div class="col-md-10">
+                            <div class="col-md-2">-->
                                 <!-- $profile_formのgender部分を表示 -->
-                                <input type="text" class="form-control" name="gender" value="{{ $profile_form->gender }}">
+                                <!--<input type="text" class="form-control" name="gender" value="{{ $profile_form->gender }}">
                             </div>
-                        </div>
+                        </div>-->
+                        
+                        
+                            
+                       <!-- 性別プルダウン表示 -->  
+                        <div class="form-group row">
+                            <label class="col-md-2">性別</label>
+                               <div class="col-md-2">
+                                    <select class="form-control" name="gender" value="{{ old('gender') }}">
+                                        <option class="">男性</option>
+                                        <option class="">女性</option>
+                                        <option class="">その他</option>
+                                    </select>
+                                </div>
+                        </div>      
+                        
                         
                         <!-- 趣味入力部分 -->
                         <div class="form-group row">
                             <label class="col-md-2" for='name'>趣味</label>
                             <div class="col-md-10">
                                 <!-- $profile_formのhobby部分を表示 -->
-                                <input type="text" class="form-control" name="hobby" value="{{ $profile_form->hobby }}">
+                                <!--<input type="text" class="form-control" name="hobby" value="{{ $profile_form->hobby }}">-->
+                                <textarea class="form-control" name="hobby" rows="2">{{ $profile_form->hobby }}</textarea>
                             </div>
                         </div>
+                        
+                        
+                        
+                        
+                        
                         
                         <!--自己紹介入力部分 -->
                         <div class="form-group row">

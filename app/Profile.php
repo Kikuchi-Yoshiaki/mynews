@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    //protected=クラスと継承クラスからアクセス可能
+    
     protected $guarded = array('id');
     
     public static $rules = array(
-        'name'         => 'required', //name=>必須入力    
-        'gender'       => 'required', //gender=>必須入力
-        'hobby'        => 'required', //hobby=>必須入力
-        'introduction' => 'required', //introduction=>必須入力
+        'name'         => 'required', # ※ required → 入力必須
+        'gender'       => 'required',
+        'hobby'        => 'required',
+        'introduction' => 'required',
     );
     
-    //ProfileHistry Modelと関連付けさせる
-    public function profile_histories()
+    
+    public function profile_histories() # Profire_Histories Modelとリレーション(関連付け)
     {
-        //hasMany=複数との関連付け
         return $this->hasMany('App\ProfileHistory');
+            # ※ hasMany() → リレーションされているテーブル全てを取得する
     }
 }

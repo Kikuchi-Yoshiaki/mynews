@@ -1,25 +1,25 @@
 <?php
+// データ保存用で作成したファイル
 
-//データ保存用で作成したファイル
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    //protected=クラスと継承クラスからアクセス可能
+    
     protected $guarded = array('id');
     
     public static $rules = array(
-        'title' => 'required' , //title=>必須入力
-        'body'  => 'required' , //body=>必須入力
+        'title' => 'required' , # ※ required → 入力必須
+        'body'  => 'required' , 
     );
     
-    //Histry Modelと関連付けさせる
-    public function histories()
+    
+    public function histories() # Histories Modelとリレーション(関連付け)
     {
-        //hasMany=複数との関連付け
         return $this->hasMany('App\History');
+            # ※ hasMany() → リレーションされているテーブル全てを取得する
     }
 
 }

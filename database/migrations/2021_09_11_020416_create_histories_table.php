@@ -11,13 +11,14 @@ class CreateHistoriesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() # Migration実行時にカラムを定義する
     {
-        //テーブル名:histories
-        Schema::create('histories', function (Blueprint $table) {
-            $table->increments('id'); //id=>主キー
-            $table->integer('news_id'); //news_id(INT型整数)カラム
-            $table->string('edited_at'); //edited_at(STRING型文字列)カラム
+        
+        Schema::create('histories', function (Blueprint $table) { # Historiesテーブルに新しくカラムを作る
+        
+            $table->increments('id');    # id=>主キー
+            $table->integer('news_id');  # news_id(INT型整数)カラム
+            $table->string('edited_at'); # edited_at(STRING型文字列)カラム
             $table->timestamps();
         });
     }
@@ -27,7 +28,7 @@ class CreateHistoriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down() # テーブルを削除する
     {
         Schema::dropIfExists('histories');
     }

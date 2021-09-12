@@ -11,16 +11,17 @@ class CreateNewsTable extends Migration
      *
      * @return void
      */
-    
-    //up関数-Migration実行時のコードを書く
-    public function up()
+    public function up() # Migration実行時にカラムを定義する
     {
-        //テーブル名:news
-        Schema::create('news', function (Blueprint $table) {
-           $table->bigIncrements('id');  //id=>主キー
-           $table->string('title');  //タイトルカラム
-           $table->string('body');  //ニュースの本文カラム
-           $table->string('image_path')->nullable();  //画像テーブルnullableは画像パスは空でも保存可の意味
+        
+        Schema::create('news', function (Blueprint $table) { # Newsテーブルに新しくカラムを作る
+            # ※ Schema(構造) Blueprint(設計図)
+            
+           $table->bigIncrements('id');                # id=>主キー
+           $table->string('title');                    # titleカラム
+           $table->string('body');                     # bodyカラム
+           $table->string('image_path')->nullable();   # image_pathカラム
+                # ※nullableは画像パスは空でも保存可の意味
            $table->timestamps();
         });
     }
@@ -31,8 +32,7 @@ class CreateNewsTable extends Migration
      * @return void
      */
     
-    //down関数-Migrationの取り消しをするためのコードを書く
-    public function down()
+    public function down() # テーブルを削除する
     {
         Schema::dropIfExists('news');
     }

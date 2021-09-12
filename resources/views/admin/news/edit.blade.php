@@ -17,11 +17,14 @@
                     
                     <!-- エラーを確認 -->
                     @if (count($errors) > 0)
-                        <ul>
-                            @foreach($errors->all() as $e)
-                                <li>{{ $e }}</li>
-                            @endforeach
-                        </ul>
+                        <div class="col-md-12 alert alert-primary">
+                            <div style="color: red;">※ 入力漏れの箇所があります。</div>
+                            <ul>
+                                @foreach($errors->all() as $e)
+                                    <li>{{ $e }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
         
                     <!-- タイトル入力部分 -->

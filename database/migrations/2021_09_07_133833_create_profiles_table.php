@@ -11,15 +11,17 @@ class CreateProfilesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() # Migration実行時にカラムを定義する
     {
-        //テーブル名:profiles
-        Schema::create('profiles', function (Blueprint $table) {
-            $table->bigIncrements('id'); //id=>主キー
-            $table->string('name');  //名前カラム
-            $table->string('gender');  //性別カラム
-            $table->string('hobby');  //趣味カラム
-            $table->string('introduction');  //自己紹介カラム
+        
+        Schema::create('profiles', function (Blueprint $table) { # Profileテーブルに新しくカラムを作る
+            # ※ Schema(構造) Blueprint(設計図)
+        
+            $table->bigIncrements('id');      # id=>主キー
+            $table->string('name');           # titleカラム
+            $table->string('gender');         # 性別カラム
+            $table->string('hobby');          # hobbyカラム
+            $table->string('introduction');   # introduction(自己紹介)カラム
             $table->timestamps();
         });
     }
@@ -29,7 +31,7 @@ class CreateProfilesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down() # テーブルを削除する
     {
         Schema::dropIfExists('profiles');
     }

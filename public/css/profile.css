@@ -39,3 +39,15 @@ body {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
+::-moz-placeholder {
+  color: #f555;
+}
+
+:-ms-input-placeholder {
+  color: #f555;
+}
+
+::placeholder {
+  color: #f555;
+}
+

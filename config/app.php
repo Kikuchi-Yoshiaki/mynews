@@ -71,7 +71,9 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Locale Configuration
+    | ※ エラーメッセージを日本語にする場合はここを 'en'→'la'に変更
+    |   次にresources/langでenをコピーしてjaディレクトリを作成
+    |   'attributes'を修正して最後に'attributes'配列を作成
     |--------------------------------------------------------------------------
     |
     | The application locale determines the default locale that will be used
