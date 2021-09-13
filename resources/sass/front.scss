@@ -57,6 +57,13 @@ body {
 }
     
 
-
-
-
+.navbar-laravel {
+    background-color: rgba(0, 100, 255, 0.5);
+}
+.navbar-brand {
+  color: #000 !important;
+  font-size: 32px;
+}
+.nav-link {
+    color: #000;
+}

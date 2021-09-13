@@ -33,7 +33,7 @@
             <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'laravel') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -48,15 +48,24 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             
+                            <!-- 練習追加 -->
+                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="nav-link" href="{{ url('admin/news') }}">ニュース<br>一覧</a></li>
+                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="nav-link" href="{{ url('/admin/news/create') }}">ニュース <br>登録</a></li>
+                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="nav-link" href="{{ url('/admin/profile') }}">プロフィール<br>一覧</a></li>
+                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="nav-link" href="{{ url('/admin/profile/create') }}">プロフィール<br>登録</a></li>
+                            
+                            
+                            
+                            
                         {{-- 新規追加部分 --}}
                         <!-- Authentication Links -->
                         {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
                         @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                            <li><a class="nav-tabs col-md-3 text-center" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             
                         {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-tabs col-md-3 text-center dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     
                                     {{ Auth::user()->name }}<span class="caret"></span>
