@@ -30,10 +30,10 @@
         <div id="app">
             
             {{-- ここから画面上部のナビゲーションバー --}}
-            <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
+            <nav class="navbar navbar-dark navbar-expand-md navbar-laravel">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                    <a class="navbar-brand rounded" href="{{ url('/') }}">
+                        {{ config('app.name') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -42,30 +42,24 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                           
+                           <li class="sub-title">　Let's post the MyNews!</li>
                         </ul>
                        
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav black ml-auto">
-                            
-                        <!-- 練習追加 -->
-                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="black" href="{{ url('/admin/news') }}">ニュース<br>一覧</a></li>
-                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="black" href="{{ url('/admin/news/create') }}">ニュース <br>登録</a></li>
-                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="black" href="{{ url('/profile') }}">プロフィール<br>一覧</a></li>
-                            <li class="nav-tabs col-md-3 text-center" style="width: 10rem"><a class="black" href="{{ url('/admin/profile/create') }}">プロフィール<br>登録</a></li>    
                         
                             
                         <!-- Authentication Links -->
                         {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
                         @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                            <li><a class="btn btn-lg btn-dark" href="{{ route('login') }}">{{ __('messages.Login')."する" }}</a></li>
                             
                         {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                         @else
-                            <li class="nav-tabs dropdown">
+                            <li class="nav-pills dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     
-                                    {{ Auth::user()->name }}<span class="caret"></span>
+                                    {{ "ようこそ".Auth::user()->name."さん!" }}<span class="caret"></span>
                                 </a>
                                 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -87,7 +81,15 @@
                 </div>
             </nav>
             {{-- ここまでナビゲーションバー --}}
-
+            <ul class="nav nav-pills nav-justified">
+                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/') }}">トップページ</a></li>
+                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/admin/news/create') }}">ニュースを投稿</a></li>
+                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/profile') }}">記者一覧</a></li>
+                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/admin/profile/create') }}">記者になる</a></li>
+                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/admin/news/edit') }}">空き枠１</a></li>
+                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/register') }}">空き枠２</a></li>
+            </ul>
+            
             <main class="py-4">
                 {{-- コンテンツをここに入れるため、@yieldで空けておきます。 --}}
                 @yield('content')
