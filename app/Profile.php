@@ -23,4 +23,8 @@ class Profile extends Model
         return $this->hasMany('App\ProfileHistory');
             # ※ hasMany() → リレーションされているテーブル全てを取得する
     }
+
+    
+    
 }
+

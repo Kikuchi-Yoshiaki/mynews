@@ -104,8 +104,6 @@ body {
 
 .nav-list a{
     display: block;
-    height: 100%;
-    width: 100%
 }
 
 .sub-link {
@@ -118,3 +116,30 @@ body {
   padding-bottom: 3px;
   padding-top: 2px;
 }
+
+
+
+.wcontainer {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+.web-btn {
+ margin: 5px 0 20px 10px;
+ font-size: 10px;
+ height: 30px;
+ width: 90px;
+}
+.web-btn2 {
+  margin: 5px 0 20px 10px;
+  font-size: 16px;
+  height: 30px;
+  width: 30px;
+}
+
+
+.list-font {
+  font-size: 20px;
+  font-family: 'Yomogi', cursive;
+}
+

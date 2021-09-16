@@ -19,18 +19,28 @@
         <!-- Fonts -->
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+        <!-- 追加した日本語フォント -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         {{-- Laravel標準で用意されているCSSを読み込みます --}}
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         {{-- 作成したpublic/css/admin.cssを読み込む --}}
         <link href="{{ asset('css/front.css') }}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/7807b4c945.js" crossorigin="anonymous"></script>
+        
     </head>
     <body>
         <div id="app">
             
+             
             {{-- ここから画面上部のナビゲーションバー --}}
+        
             <nav class="navbar navbar-dark navbar-expand-md navbar-laravel">
+            
                 <div class="container">
                     <a class="navbar-brand rounded" href="{{ url('/') }}">
                         {{ config('app.name') }}
@@ -76,19 +86,33 @@
                                 </div>
                             </li>
                             @endguest
-                        </ul>            
+                        </ul> 
                     </div>
                 </div>
             </nav>
             {{-- ここまでナビゲーションバー --}}
             <ul class="nav nav-pills nav-justified">
-                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/') }}">トップページ</a></li>
-                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/admin/news/create') }}">ニュースを投稿</a></li>
-                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/profile') }}">記者一覧</a></li>
-                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/admin/profile/create') }}">記者になる</a></li>
-                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/admin/news/edit') }}">空き枠１</a></li>
-                <li class="nav-item nav-list"><a class="active sub-link" href="{{ url('/register') }}">空き枠２</a></li>
+                <li class="nav-item nav-list list-font"><a class="active sub-link" href="{{ url('/') }}">トップページ</a></li>
+                <li class="nav-item nav-list list-font"><a class="active sub-link" href="{{ url('/admin/news/create') }}">ニュースを投稿</a></li>
+                <li class="nav-item nav-list list-font"><a class="active sub-link" href="{{ url('/profile') }}">記者一覧</a></li>
+                <li class="nav-item nav-list list-font"><a class="active sub-link" href="{{ url('/admin/profile/create') }}">記者になる</a></li>
+                <li class="nav-item nav-list list-font"><a class="active sub-link" href="{{ url('/admin/news/edit') }}">空き枠１</a></li>
+                <li class="nav-item nav-list list-font"><a class="active sub-link" href="{{ url('/register') }}">空き枠２</a></li>
             </ul>
+            
+                <div class="wcontainer">
+                    <button class="web-btn btn btn-info"><a class="text-white" href="https://twitter.com/home?lang=ja"><i class="fab fa-twitter"> Twitter</i></a></button>
+                    <button class="web-btn btn btn-primary"><a class="text-white" href="https://ja-jp.facebook.com/"><i class="fab fa-facebook-square"> facebook</i></a></button>
+                    <button class="web-btn btn btn-dark"><a class="text-white" href="https://github.com/"><i class="fab fa-github"> GitHub</i></a></button>
+                    <button class="web-btn btn btn-success"><a class="text-white" href="https://www.youtube.com/"><i class="fas fa-blog"> ブログ</i></a></button> 
+                
+                    <button class="web-btn2 btn btn-info rounded-circle p-0"><a class="text-white" href="https://twitter.com/home?lang=ja"><i class="fab fa-twitter"></i></a></button>
+                    <button class="web-btn2 btn btn-primary rounded-circle p-0"><a class="text-white" href="https://ja-jp.facebook.com/"><i class="fab fa-facebook-square"></i></a></button>
+                    <button class="web-btn2 btn btn-dark rounded-circle p-0"><a class="text-white" href="https://github.com/"><i class="fab fa-github"></i></a></button>
+                    <button class="web-btn2 btn btn-danger rounded-circle p-0"><a class="text-white" href="https://www.youtube.com/"><i class="fab fa-instagram-square"></i></a></button> 
+                </div>
+            
+            
             
             <main class="py-4">
                 {{-- コンテンツをここに入れるため、@yieldで空けておきます。 --}}

@@ -21,5 +21,5 @@ class News extends Model
         return $this->hasMany('App\History');
             # ※ hasMany() → リレーションされているテーブル全てを取得する
     }
-
+    
 }
