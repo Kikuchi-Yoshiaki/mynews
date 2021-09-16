@@ -24,7 +24,7 @@
         {{-- Laravel標準で用意されているCSSを読み込みます --}}
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         {{-- 作成したpublic/css/admin.cssを読み込む --}}
-        <link href="{{ asset('css/list.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/front.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app">
@@ -38,17 +38,23 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
+                    
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-
+                           
                         </ul>
-
+                       
                         <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ml-auto">
+                        <ul class="navbar-nav black ml-auto">
                             
-                        {{-- 新規追加部分 --}}
+                        <!-- 練習追加 -->
+                            <li class="nav-tabs col-md-2 text-center" style="width: 10rem"><a class="black" href="{{ url('/admin/news') }}">ニュース<br>一覧</a></li>
+                            <li class="nav-tabs col-md-2 text-center" style="width: 10rem"><a class="black" href="{{ url('/admin/news/create') }}">ニュース <br>登録</a></li>
+                            <li class="nav-tabs col-md-2 text-center" style="width: 10rem"><a class="black" href="{{ url('/profile') }}">プロフィール<br>一覧</a></li>
+                            <li class="nav-tabs col-md-2 text-center" style="width: 10rem"><a class="black" href="{{ url('/admin/profile/create') }}">プロフィール<br>登録</a></li>    
+                        
+                            
                         <!-- Authentication Links -->
                         {{-- ログインしていなかったらログイン画面へのリンクを表示 --}}
                         @guest
@@ -56,7 +62,7 @@
                             
                         {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-tabs col-md-2 text-center" dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     
                                     {{ Auth::user()->name }}<span class="caret"></span>
@@ -65,24 +71,22 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" 
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                
+                                        
                                         {{ __('Logout') }}
                                     </a>
-    
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        
                                         @csrf
                                     </form>
                                 </div>
                             </li>
                             @endguest
-                            {{-- 追記部分ここまで --}}
                         </ul>            
                     </div>
                 </div>
             </nav>
             {{-- ここまでナビゲーションバー --}}
-
             <main class="py-4">
                 {{-- コンテンツをここに入れるため、@yieldで空けておきます。 --}}
                 @yield('content')
