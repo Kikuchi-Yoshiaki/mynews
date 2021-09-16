@@ -91,5 +91,5 @@ body {
 .nav-justified {
   background: rgba(250, 250, 250, 0.9);
   border-bottom: rgba(0, 0, 0, 0.3) solid 1px;
-  padding: 3px 0;
+  padding-bottom: 3px;
 }
