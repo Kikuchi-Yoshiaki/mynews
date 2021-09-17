@@ -112,7 +112,9 @@
                     <button class="web-btn2 btn btn-danger rounded-circle p-0"><a class="text-white" href="https://www.youtube.com/"><i class="fab fa-instagram-square"></i></a></button> 
                 </div>
             
-            
+            <!-- 現在時刻理屈はまだ不明 -->
+            <div class="now-data">{{ "今日は".\Carbon\Carbon::now('Asia/Tokyo')->format('Y年m月d日(D)H時i分') }}</div>
+        
             
             <main class="py-4">
                 {{-- コンテンツをここに入れるため、@yieldで空けておきます。 --}}

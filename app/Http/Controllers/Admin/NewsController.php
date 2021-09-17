@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\News;  # News Modelを使う -> app/Http/News.php
 use App\History;  # History Modelを使えるようにする -> app/Http/History
 use Carbon\Carbon;  # updateActionのCarbon::now()を使う
+use Storage; //追加
     
 
 
@@ -34,8 +35,10 @@ class NewsController extends Controller
         
         if (isset($form['image'])) #$formの画像がセットされているか確認
         {
-            $path = $request->file('image')->store('public/image'); #画像をアップロードして保存=$path
-            $news->image_path = basename($path); # $pathをハッシュ(文字列)化して$newsのimage_pathへ
+            $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+            $news->image_path = Storage::disk('s3')->url($path);
+            //$path = $request->file('image')->store('public/image'); #画像をアップロードして保存=$path
+            //$news->image_path = basename($path); # $pathをハッシュ(文字列)化して$newsのimage_pathへ
         } else {
             $news->image_path = null; #画像がセットされていなければNULL
         }
@@ -94,9 +97,11 @@ class NewsController extends Controller
                 # ※->remove(再読み込み)
             $news_form['image_path'] = null; # $news_formのimage_pathはNULL
         } elseif ($request->file('image')) { # $requestの画像ファイルが更新された時は
-            $path = $request->file('image')->store('public/image');
+            $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+            //$path = $request->file('image')->store('public/image');
                 # 更新された画像をアップロードして$pathに代入
-            $news_form['image_path'] = basename($path);
+            $news->image_path = Storage::disk('s3')->url($path);
+            //$news_form['image_path'] = basename($path);
                 # $pathをハッシュ(文字列)化させて$news_formのimage_pathに代入
         } else {
             $news_form['image_path'] = $news->image_path;

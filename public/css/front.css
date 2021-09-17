@@ -143,3 +143,8 @@ body {
   font-family: 'Yomogi', cursive;
 }
 
+.now-data {
+  font-family: 'Yomogi', cursive;
+  font-size: 24px;
+  text-align: center;
+}
